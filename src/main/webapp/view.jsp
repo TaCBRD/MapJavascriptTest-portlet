@@ -14,6 +14,7 @@ String resourceURL = "http://localhost:8080/web/guest/map?p_p_id=MapService_WAR_
 var tacbrdMap;
 function init() {     
     tacbrdMap = new TaCBRDMap("tacbrd","<%= resourceURL %>");
+    //tacbrdMap.map.{your OpenLayers calls}
 }
 </script>
 </head>
