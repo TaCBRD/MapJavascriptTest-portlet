@@ -43,7 +43,7 @@ import mil.jpeocbd.enterprise.osgi.xml.jaxb.map.ReferenceList;
 //import java.util.logging.Level;
 //import java.util.logging.Logger;
 import mil.jpeocbd.enterprise.osgi.map.DefaultMap;
-//import mil.jpeocbd.enterprise.osgi.map.FeaturedGeometry;
+import mil.jpeocbd.enterprise.osgi.map.FeaturedGeometry;
 import mil.jpeocbd.enterprise.osgi.map.Layer;
 //import org.springframework.http.ResponseEntity;
 
@@ -198,7 +198,6 @@ public class MapServiceImpl {// implements MapService {
 		restTemplate.put(getBaseUrl() + REF_MAPS + "/" + map.getId(), xmlMap);
 	}
 
-//	@Override
 	public void addKmlLayer(String name, String kmlBody, String user,
 			String portletGroupId) {
 		// create the layer
@@ -288,56 +287,56 @@ public class MapServiceImpl {// implements MapService {
 //		return layer;
 //	}
 //
-//	/**
-//	 * Populate our local MapLayer implementation object.
-//	 * 
-//	 * @param geometric
-//	 * @return
-//	 */
-//	private MapLayer buildMapLayer(mil.jpeocbd.enterprise.osgi.map.GeometricLayer geo) {
-//		String user = geo.getProperty(PROPERTY_USER_ID);
-//		String community = geo.getProperty(PROPERTY_COMMUNITY_ID);
-//		WKTLayer layer = new WKTLayer();
-//		layer.setId(geo.getId());
-//		layer.setName(geo.getName());
-//		layer.setZOrder(geo.getZOrder());
-//		layer.setFormat("WKT");
-//		layer.setOwnerID(user);
-//		layer.setCommunityID(community);
-//        layer.setDescription(geo.getDescription());
-//        try {
-//            for(FeaturedGeometry geometry : geo.getGeometries()){
-//            	LayerFeature feature = new LayerFeature();
-//            	feature.setLabel(geometry.getLabel());
-//            	feature.setGeometry(geometry.getGeometry().toText());
-//                if(geometry.getStyling()!=null) {
-//                	switch(geometry.getStyling().getFill()) {
-//                	
-//	                	case SOLID:
-//	            		default:
-//	                		// TODO: figure out fill style in OpenLayers
-//                	}
-//                	//geometry.getStyling().setFill(PolygonStyle.Fill.)
-//	                //System.out.println("getFill: " + geometry.getStyling().getFill() );
-//                	feature.setFillColor(geometry.getStyling().getFillColor());
-//                	feature.setStrokeWidth(geometry.getStyling().getLineStyle().getThickness());
-//                	feature.setStrokeColor(geometry.getStyling().getLineStyle().getColor());
-//                	switch(geometry.getStyling().getLineStyle().getFill()) {
-//	                	case DASH:
-//	                		feature.setStrokeDashstyle(LayerFeature.STROKE_DASH_STYLE.dash);
-//	                	case SOLID:
-//	            		default:
-//	            			feature.setStrokeDashstyle(LayerFeature.STROKE_DASH_STYLE.solid);
-//                	}
-//                	// TODO: figure out line style
-//	                
-//                }
-//                layer.addFeature(feature);
-//            }
-//        }
-//        catch(Exception e) {}
-//		return layer;
-//	}
+	/**
+	 * Populate our local MapLayer implementation object.
+	 * 
+	 * @param geometric
+	 * @return
+	 */
+	private WKTLayer buildMapLayer(mil.jpeocbd.enterprise.osgi.map.GeometricLayer geo) {
+		String user = geo.getProperty(PROPERTY_USER_ID);
+		String community = geo.getProperty(PROPERTY_COMMUNITY_ID);
+		WKTLayer layer = new WKTLayer();
+		layer.setId(geo.getId());
+		layer.setName(geo.getName());
+		layer.setZOrder(geo.getZOrder());
+		layer.setFormat("WKT");
+		layer.setOwnerID(user);
+		layer.setCommunityID(community);
+        layer.setDescription(geo.getDescription());
+        try {
+            for(FeaturedGeometry geometry : geo.getGeometries()){
+            	LayerFeature feature = new LayerFeature();
+            	feature.setLabel(geometry.getLabel());
+            	feature.setGeometry(geometry.getGeometry().toText());
+                if(geometry.getStyling()!=null) {
+                	switch(geometry.getStyling().getFill()) {
+                	
+	                	case SOLID:
+	            		default:
+	                		// TODO: figure out fill style in OpenLayers
+                	}
+                	//geometry.getStyling().setFill(PolygonStyle.Fill.)
+	                //System.out.println("getFill: " + geometry.getStyling().getFill() );
+                	feature.setFillColor(geometry.getStyling().getFillColor());
+                	feature.setStrokeWidth(geometry.getStyling().getLineStyle().getThickness());
+                	feature.setStrokeColor(geometry.getStyling().getLineStyle().getColor());
+                	switch(geometry.getStyling().getLineStyle().getFill()) {
+	                	case DASH:
+	                		feature.setStrokeDashstyle(LayerFeature.STROKE_DASH_STYLE.dash);
+	                	case SOLID:
+	            		default:
+	            			feature.setStrokeDashstyle(LayerFeature.STROKE_DASH_STYLE.solid);
+                	}
+                	// TODO: figure out line style
+	                
+                }
+                layer.addFeature(feature);
+            }
+        }
+        catch(Exception e) {}
+		return layer;
+	}
 //
 //	/**
 //	 * Populate our local MapLayer implementation object.

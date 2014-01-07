@@ -12,6 +12,8 @@ var map;
 var drawingControls;
 var drawingLayer;
 var GEOGRAPHIC = new OpenLayers.Projection("EPSG:4326");
+var MERCATOR = new OpenLayers.Projection("EPSG:900913");
+var TPAT_LAYER_URL = "http://localhost/enterprise/map/rest/layers/geometric/TpatAreaOfInterest";
 
 function init() {
 	var mapOptions = {
@@ -47,6 +49,13 @@ function init() {
 	for (var key in drawingControls) {
 	    map.addControl(drawingControls[key]);
 	}
+	
+	// Get TPAT layer
+	// Initializce the layer in IM/IT using:
+	//	 http://localhost/tpat/rest/publishAreaOfInterest
+	// It should show up at
+	//   http://localhost/enterprise/map/rest/layers/geometric/TpatAreaOfInterest
+	addTPAT();
 }
 
 function changeMapMode(value) {
@@ -84,6 +93,42 @@ function getKMLFromFeatures(features, folderName, folderDescription) {
 	});
 
 	return format.write(features);
+}
+
+
+function addWKTToMap(data){
+     var tpat = new OpenLayers.Layer.Vector(
+                    data.name			
+                );
+        if(data.hasOwnProperty("geometries")){
+        $.each(data.geometries.featuredGeometries, function(num, geo){
+            var feature_style = OpenLayers.Util.extend({}, OpenLayers.Feature.Vector.style["default"]);
+            feature_style.label=geo.label;
+            var fillCol = geo.styling.fillColor;
+            var lineCol = geo.styling.lineStyle.color;
+            feature_style.fillColor='rgb(' + [fillCol.r, fillCol.g, fillCol.b].join(',') + ')';
+            feature_style.strokeWidth=geo.styling.lineStyle.thickness;
+            feature_style.strokeColor='rgb(' + [lineCol.r, lineCol.g, lineCol.b].join(',') + ')';
+            var wktText = geo.geometry.wkt;
+            var feature_geometry = OpenLayers.Geometry.fromWKT(wktText);
+            feature_geometry.transform(GEOGRAPHIC, MERCATOR);
+            var layer_feature = new OpenLayers.Feature.Vector(feature_geometry, null, feature_style);
+            tpat.addFeatures([layer_feature]);
+        });
+        }
+
+    map.addLayer(tpat);
+}
+
+function addTPAT() {
+	$.ajax({
+        url: "<%= request.getContextPath() %>/proxy.jsp?url=" + TPAT_LAYER_URL,
+        dataType: "json",
+        crossDomain:true,
+        success: function (obj) {
+        	addWKTToMap(obj);
+        }
+    });
 }
 </script>
 </head>
