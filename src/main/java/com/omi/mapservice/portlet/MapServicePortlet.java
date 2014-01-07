@@ -123,31 +123,31 @@ public class MapServicePortlet extends MVCPortlet {
 //		setNextPageToHome(request, response);
 //	}
 //
-//	/**
-//	 * Store drawing layer as KML.
-//	 * 
-//	 * @param request
-//	 * @param response
-//	 * @throws IOException
-//	 */
-//	public void saveDrawing(ActionRequest request, ActionResponse response)
-//			throws IOException, SystemException {
-//		// process form fields
-//		String name = ParamUtil.getString(request, "drawingName", "");
-//		String kmlBody = ParamUtil.getString(request, "drawingKML", "");
-//		User user = (User) request.getAttribute(WebKeys.USER);
-//		String userId = String.valueOf(user.getUserId());
-//		// ThemeDisplay themeDisplay = (ThemeDisplay)
-//		// request.getAttribute(WebKeys.THEME_DISPLAY);
-//		// String portletGroupId =
-//		// String.valueOf(themeDisplay.getScopeGroupId());
-//		String portletGroupId = "0";
-//		System.out.println("addLayer KML name " + name + " User: " + userId
-//				+ " Community: " + portletGroupId);
-//		sendKmlLayerToServer(name, kmlBody, userId, portletGroupId);
-//		// redirect
-//		setNextPageToHome(request, response);
-//	}
+	/**
+	 * Store drawing layer as KML.
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	public void saveDrawing(ActionRequest request, ActionResponse response)
+			throws IOException, SystemException {
+		// process form fields
+		String name = ParamUtil.getString(request, "drawingName", "");
+		String kmlBody = ParamUtil.getString(request, "drawingKML", "");
+		User user = (User) request.getAttribute(WebKeys.USER);
+		String userId = String.valueOf(user.getUserId());
+		// ThemeDisplay themeDisplay = (ThemeDisplay)
+		// request.getAttribute(WebKeys.THEME_DISPLAY);
+		// String portletGroupId =
+		// String.valueOf(themeDisplay.getScopeGroupId());
+		String portletGroupId = "0";
+		System.out.println("addLayer KML name " + name + " User: " + userId
+				+ " Community: " + portletGroupId);
+		sendKmlLayerToServer(name, kmlBody, userId, portletGroupId);
+		// redirect
+		setNextPageToHome(request, response);
+	}
 //
 //	public void shareLayer(ActionRequest request, ActionResponse response)
 //			throws IOException, SystemException {
@@ -274,10 +274,10 @@ public class MapServicePortlet extends MVCPortlet {
 //		}
 //	}
 //
-//	private void sendKmlLayerToServer(String name, String kmlBody, String user,
-//			String portletGroupId) {
-//		mapService.addKmlLayer(name, kmlBody, user, portletGroupId);
-//	}
+	private void sendKmlLayerToServer(String name, String kmlBody, String user,
+			String portletGroupId) {
+		mapService.addKmlLayer(name, kmlBody, user, portletGroupId);
+	}
 //
 //	private void sendGmlLayerToServer(String name, String kmlBody, String user,
 //			String portletGroupId) {
@@ -298,18 +298,18 @@ public class MapServicePortlet extends MVCPortlet {
 //		mapService.shareLayerById(Id, communityId, format);
 //	}
 //
-//	private void setNextPageToHome(ActionRequest request,
-//			ActionResponse response) throws IOException {
-//		ThemeDisplay themeDisplay = (ThemeDisplay) request
-//				.getAttribute(WebKeys.THEME_DISPLAY);
-//		String portletName = (String) request.getAttribute(WebKeys.PORTLET_ID);
-//		PortletURL redirectURL = PortletURLFactoryUtil
-//				.create(PortalUtil.getHttpServletRequest(request), portletName,
-//						themeDisplay.getLayout().getPlid(),
-//						PortletRequest.RENDER_PHASE);
-//		redirectURL.setParameter("jspPage", "/html/mapservice/index.jsp");
-//		response.sendRedirect(redirectURL.toString());
-//	}
+	private void setNextPageToHome(ActionRequest request,
+			ActionResponse response) throws IOException {
+		ThemeDisplay themeDisplay = (ThemeDisplay) request
+				.getAttribute(WebKeys.THEME_DISPLAY);
+		String portletName = (String) request.getAttribute(WebKeys.PORTLET_ID);
+		PortletURL redirectURL = PortletURLFactoryUtil
+				.create(PortalUtil.getHttpServletRequest(request), portletName,
+						themeDisplay.getLayout().getPlid(),
+						PortletRequest.RENDER_PHASE);
+		redirectURL.setParameter("jspPage", "/mapRestTest.jsp");
+		response.sendRedirect(redirectURL.toString());
+	}
 //
 //	private static String readFile(File file) throws IOException {
 //		FileInputStream stream = new FileInputStream(file);

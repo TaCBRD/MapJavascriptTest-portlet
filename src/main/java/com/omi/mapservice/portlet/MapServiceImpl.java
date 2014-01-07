@@ -11,23 +11,23 @@ package com.omi.mapservice.portlet;
 //import org.codehaus.jackson.map.ObjectMapper;
 //import org.codehaus.jackson.map.ObjectWriter;
 //import org.springframework.web.client.RestClientException;
-//import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.RestTemplate;
 //
-//import mil.jpeocbd.enterprise.osgi.core.xml.jaxb.map.MapMarshallingServiceImpl;
+import mil.jpeocbd.enterprise.osgi.core.xml.jaxb.map.MapMarshallingServiceImpl;
 //import mil.jpeocbd.enterprise.osgi.map.GmlResourceLayer;
-//import mil.jpeocbd.enterprise.osgi.map.KmlDocumentLayer;
+import mil.jpeocbd.enterprise.osgi.map.KmlDocumentLayer;
 //import mil.jpeocbd.enterprise.osgi.map.LineStyle;
 //import mil.jpeocbd.enterprise.osgi.map.PolygonStyle;
 //import mil.jpeocbd.enterprise.osgi.map.WmsResourceLayer;
-//import mil.jpeocbd.enterprise.osgi.xml.XmlDocument;
+import mil.jpeocbd.enterprise.osgi.xml.XmlDocument;
 //import mil.jpeocbd.enterprise.osgi.map.GmlDocumentLayer;
 //import mil.jpeocbd.enterprise.osgi.xml.jaxb.atom.Link;
 //import mil.jpeocbd.enterprise.osgi.xml.jaxb.geometry.FeaturedGeometryListType;
 //import mil.jpeocbd.enterprise.osgi.xml.jaxb.geometry.FeaturedGeometryType;
-//import mil.jpeocbd.enterprise.osgi.xml.jaxb.map.AbstractLayerType;
+import mil.jpeocbd.enterprise.osgi.xml.jaxb.map.AbstractLayerType;
 //import mil.jpeocbd.enterprise.osgi.xml.jaxb.map.GeometricLayer;
-//import mil.jpeocbd.enterprise.osgi.xml.jaxb.map.MapMarshallingService;
-//import mil.jpeocbd.enterprise.osgi.xml.jaxb.map.ReferenceList;
+import mil.jpeocbd.enterprise.osgi.xml.jaxb.map.MapMarshallingService;
+import mil.jpeocbd.enterprise.osgi.xml.jaxb.map.ReferenceList;
 //
 //import com.omi.mapservice.api.GeorssLayer;
 //import com.omi.mapservice.api.LayerFeature;
@@ -42,9 +42,9 @@ package com.omi.mapservice.portlet;
 //import com.vividsolutions.jts.util.Assert;
 //import java.util.logging.Level;
 //import java.util.logging.Logger;
-//import mil.jpeocbd.enterprise.osgi.map.DefaultMap;
+import mil.jpeocbd.enterprise.osgi.map.DefaultMap;
 //import mil.jpeocbd.enterprise.osgi.map.FeaturedGeometry;
-//import mil.jpeocbd.enterprise.osgi.map.Layer;
+import mil.jpeocbd.enterprise.osgi.map.Layer;
 //import org.springframework.http.ResponseEntity;
 
 /**
@@ -68,11 +68,11 @@ public class MapServiceImpl {// implements MapService {
 	public static final String PROPERTY_FORMAT = "LAYER-FORMAT";
 	public static final String PROPERTY_USER_ID = "USER-ID";
 	public static final String PROPERTY_COMMUNITY_ID = "COMMUNITY_ID";
-	public static final String DEFAULT_MAP_NAME = "User Layers";
+	public static final String DEFAULT_MAP_NAME = "Rest Test Layers";
 
 //	// IM/IT OSGi connection
-//	RestTemplate restTemplate = new RestTemplate();
-//	private static MapMarshallingService marshaller = new MapMarshallingServiceImpl();
+	RestTemplate restTemplate = new RestTemplate();
+	private static MapMarshallingService marshaller = new MapMarshallingServiceImpl();
 //
 //	public List<Map> getMaps() {
 //		List<Map> maps = new ArrayList<Map>();
@@ -162,66 +162,66 @@ public class MapServiceImpl {// implements MapService {
 //		}
 //	}
 //
-//	public void addLayerToMap(Layer layer, String mapName) {
-//		// get suggested id from name
-//		String mapId = "map-" + mapName.toLowerCase().replace(" ","-");	// TODO: make this more robust...special character removal etc.
-//		// look for the map
-//		String url = getBaseUrl() + REF_MAPS + "?names=" + mapName;
-//		ReferenceList list = restTemplate
-//				.getForObject(url, ReferenceList.class);
-//		if (!list.getLinks().isEmpty()) {
-//			mil.jpeocbd.enterprise.osgi.xml.jaxb.map.Map outMap = restTemplate
-//					.getForObject(list.getLinks().get(0).getHref(),
-//							mil.jpeocbd.enterprise.osgi.xml.jaxb.map.Map.class);
-//			DefaultMap map = (DefaultMap) marshaller.toDomainMap(outMap);
-//			map.addOrUpdateLayer(layer);
-//			updateMap(map);
-//		} else {
-//			// create new map
-//			DefaultMap map = new DefaultMap();
-//			map.setName(mapName);
-//			map.setId(mapId);
-//			map.addOrUpdateLayer(layer);
-//			addMap(map);
-//		}
-//	}
-//
-//	public void updateMap(mil.jpeocbd.enterprise.osgi.map.Map map) {
-//		String url = getBaseUrl() + REF_MAPS + "/" + map.getId();
-//		restTemplate.put(url,
-//				(mil.jpeocbd.enterprise.osgi.xml.jaxb.map.Map) marshaller
-//						.toXmlMap(map));
-//	}
-//
-//	public void addMap(mil.jpeocbd.enterprise.osgi.map.Map map) {
-//		mil.jpeocbd.enterprise.osgi.xml.jaxb.map.Map xmlMap = marshaller.toXmlMap(map);
-//		restTemplate.put(getBaseUrl() + REF_MAPS + "/" + map.getId(), xmlMap);
-//	}
-//
+	public void addLayerToMap(Layer layer, String mapName) {
+		// get suggested id from name
+		String mapId = "map-" + mapName.toLowerCase().replace(" ","-");	// TODO: make this more robust...special character removal etc.
+		// look for the map
+		String url = getBaseUrl() + REF_MAPS + "?names=" + mapName;
+		ReferenceList list = restTemplate
+				.getForObject(url, ReferenceList.class);
+		if (!list.getLinks().isEmpty()) {
+			mil.jpeocbd.enterprise.osgi.xml.jaxb.map.Map outMap = restTemplate
+					.getForObject(list.getLinks().get(0).getHref(),
+							mil.jpeocbd.enterprise.osgi.xml.jaxb.map.Map.class);
+			DefaultMap map = (DefaultMap) marshaller.toDomainMap(outMap);
+			map.addOrUpdateLayer(layer);
+			updateMap(map);
+		} else {
+			// create new map
+			DefaultMap map = new DefaultMap();
+			map.setName(mapName);
+			map.setId(mapId);
+			map.addOrUpdateLayer(layer);
+			addMap(map);
+		}
+	}
+
+	public void updateMap(mil.jpeocbd.enterprise.osgi.map.Map map) {
+		String url = getBaseUrl() + REF_MAPS + "/" + map.getId();
+		restTemplate.put(url,
+				(mil.jpeocbd.enterprise.osgi.xml.jaxb.map.Map) marshaller
+						.toXmlMap(map));
+	}
+
+	public void addMap(mil.jpeocbd.enterprise.osgi.map.Map map) {
+		mil.jpeocbd.enterprise.osgi.xml.jaxb.map.Map xmlMap = marshaller.toXmlMap(map);
+		restTemplate.put(getBaseUrl() + REF_MAPS + "/" + map.getId(), xmlMap);
+	}
+
 //	@Override
-//	public void addKmlLayer(String name, String kmlBody, String user,
-//			String portletGroupId) {
-//		// create the layer
-//		KmlDocumentLayer domainLayer = new KmlDocumentLayer(name,
-//				new XmlDocument(kmlBody));
-//		// add geometry for GIS queries
-//		// Geometry geometry = ...
-//		// domainLayer.setGeometry(geometry);
-//		// convert the domain object
-//		domainLayer.setProperty(PROPERTY_USER_ID, user);
-//		domainLayer.setProperty(PROPERTY_COMMUNITY_ID, portletGroupId);
-//		AbstractLayerType layer = marshaller.toXmlLayer(domainLayer);
-//
-//		// post to service
-//		try {
-//
-//			// return
-//			// restTemplate.postForLocation(getResource(REF_KML_DOCUMENTS),
-//			// layer);
-//			addLayerToMap(domainLayer, DEFAULT_MAP_NAME);
-//		} catch (Exception e) {
-//		}
-//	}
+	public void addKmlLayer(String name, String kmlBody, String user,
+			String portletGroupId) {
+		// create the layer
+		KmlDocumentLayer domainLayer = new KmlDocumentLayer(name,
+				new XmlDocument(kmlBody));
+		// add geometry for GIS queries
+		// Geometry geometry = ...
+		// domainLayer.setGeometry(geometry);
+		// convert the domain object
+		domainLayer.setProperty(PROPERTY_USER_ID, user);
+		domainLayer.setProperty(PROPERTY_COMMUNITY_ID, portletGroupId);
+		AbstractLayerType layer = marshaller.toXmlLayer(domainLayer);
+
+		// post to service
+		try {
+
+			// return
+			// restTemplate.postForLocation(getResource(REF_KML_DOCUMENTS),
+			// layer);
+			addLayerToMap(domainLayer, DEFAULT_MAP_NAME);
+		} catch (Exception e) {
+		}
+	}
 //
 //	@Override
 //	public void addGmlLayer(String name, String gmlBody, String user,
