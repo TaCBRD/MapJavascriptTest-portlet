@@ -25,7 +25,7 @@ try {
 	String line;
 	while ((line = rd.readLine()) != null) {
 		out.println(line); 
-                System.out.println(line);
+                //System.out.println(line);
 	}
 	rd.close();
  
