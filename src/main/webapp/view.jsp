@@ -3,17 +3,14 @@
 
 <portlet:defineObjects />
 
-<%
-// page settings
-String resourceURL = "http://localhost:8080/web/guest/map?p_p_id=MapService_WAR_MapServiceportlet&p_p_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_cacheability=cacheLevelPage&p_p_col_id=column-1&p_p_col_count=1";
-%>
-
 <head>
-<c:import url="http://localhost:8080/MapService-portlet/html/mapservice/initMap.jsp"/>
+<script type="text/javascript" src="/MapService-portlet/js/jquery.js"></script>
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?V=3.3&sensor=false"></script>
+<script type="text/javascript" src="/MapService-portlet/js/tacbrd-map.js"></script>
 <script type="text/javascript">
 var tacbrdMap;
 function init() {     
-    tacbrdMap = new TaCBRDMap("tacbrd","<%= resourceURL %>");
+    tacbrdMap = new TaCBRDMap("tacbrd");
     //tacbrdMap.map.{your OpenLayers calls}
 }
 </script>
