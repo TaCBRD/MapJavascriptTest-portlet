@@ -6,7 +6,7 @@
 	<artifactId>MapJavascriptTest-portlet</artifactId>
 	<packaging>war</packaging>
 	<name>MapJavascriptTest-portlet Portlet</name>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<build>
 		<plugins>
 		<!-- 

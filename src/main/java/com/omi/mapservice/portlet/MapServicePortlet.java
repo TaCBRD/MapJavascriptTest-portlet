@@ -48,7 +48,7 @@ public class MapServicePortlet extends MVCPortlet {
 			mapServiceUrl += "/";
 		//mapService.setBaseUrl(mapServiceUrl);
 
-		if (page == null || page.equals("/mapRestTest.jsp")) {
+		if (page == null || page.equals("/view.jsp")) {
 			//request.setAttribute("maps", mapService.getMaps());
 			//request.setAttribute("mapsJSON", mapService.getMapsAsJson());
 		}
